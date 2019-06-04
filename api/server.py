@@ -77,7 +77,12 @@ class Customers(Resource):
         global users
         users = [user for user in users if user["name"] != name]
         return "{} is deleted.".format(name), 200
-      
+
+class CustomersList(Resource):
+    def get(self):       
+        return users
+    
 api.add_resource(Customers, "/customer/<string:name>")
+api.add_resource(CustomersList, "/customers/all")
 
 app.run(debug=True)
