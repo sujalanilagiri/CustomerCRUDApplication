@@ -1,0 +1,34 @@
+from flask import Flask, request
+from flask_restful import Resource, Api
+from sqlalchemy import create_engine
+from json import dumps
+
+db_connect = create_engine('sqlite:///chinook.db')
+app = Flask(__name__)
+api = Api(app)
+
+class Customers(Resource):
+    def get(self):
+        conn = db_connect.connect() # connect to database
+        query = conn.execute("select * from customers") # This line performs query and returns json result
+        return {'customers': [i[0] for i in query.cursor.fetchall()]} # Fetches first column that is Employee ID
+
+class AddCustomer(Resource):
+    def post(self,payload):
+        conn = db_connect.connect()
+        first_name = payload.get('firstName');
+        last_name = payload.get('lastName');
+        email = payload.get('email');
+        phone = payload.get('phone');
+        cur = conn.cursor()
+        cur.execute("INSERT INTO CUSTOMERS (FIRST_NAME,LAST_NAME,EMAIL,PHONE) VALUES (?,?,?,?)", (first_name,last_name,email,phone))
+        con.commit()   
+
+
+
+api.add_resource(Customers, '/customers') # Route_1
+api.add_resource(AddCustomer, '/add_customer') # Route_2
+
+
+if __name__ == '__main__':
+     app.run(port='5002')

@@ -10,19 +10,22 @@ db_connect = create_engine('sqlite:///chinook.db')
 
 users = [
     {
-        "name": "Nicholas",
+        "firstName": "Nicholas",
+        "lastName" : "Thomas",
         "age": 42,
-        "occupation": "Network Engineer"
+        "email": "nicholas.thomas@gmail.com"
     },
     {
-        "name": "Elvin",
+        "firstName": "Elvin",
+        "lastName" :"Martin",
         "age": 32,
-        "occupation": "Doctor"
+        "email": "martin.elvin@gmail.com"
     },
     {
-        "name": "Jass",
+        "firstName": "Jass",
+        "lastName" :"Base",
         "age": 22,
-        "occupation": "Web Developer"
+        "email": "jass.base@gmail.com"
     }
 ]
 
@@ -31,51 +34,57 @@ class Customers(Resource):
     def get(self, name):
         
         for user in users:
-            if(name == user["name"]):
+            if(name == user["firstName"]):
                 return user, 200
         return "User not found", 404
 
     def post(self, name):
         parser = reqparse.RequestParser()
+        parser.add_argument("lastName")
         parser.add_argument("age")
-        parser.add_argument("occupation")
+        parser.add_argument("email")
         args = parser.parse_args()
 
         for user in users:
-            if(name == user["name"]):
+            if(name == user["firstName"]):
                 return "User with name {} already exists".format(name), 400
-
+        print(args)
         user = {
-            "name": name,
+            "firstName": name,
+            "lastName" :args["lastName"],
             "age": args["age"],
-            "occupation": args["occupation"]
+            "email":args["email"]
         }
+
         users.append(user)
         return user, 201
 
     def put(self, name):
         parser = reqparse.RequestParser()
+        parser.add_argument("lastName")
         parser.add_argument("age")
-        parser.add_argument("occupation")
+        parser.add_argument("email")
         args = parser.parse_args()
 
         for user in users:
-            if(name == user["name"]):
+            if(name == user["firstName"]):
                 user["age"] = args["age"]
-                user["occupation"] = args["occupation"]
+                user["lastName"] = args["lastName"]
+                user["email"] = args["email"]
                 return user, 200
         
         user = {
-            "name": name,
-            "age": args["age"],
-            "occupation": args["occupation"]
+            "firstName": name,
+            "lastName": args["lastName"],
+            "age":args["age"],
+            "email": args["email"]
         }
         users.append(user)
         return user, 201
 
     def delete(self, name):
         global users
-        users = [user for user in users if user["name"] != name]
+        users = [user for user in users if user["firstName"] != name]
         return "{} is deleted.".format(name), 200
 
 class CustomersList(Resource):
