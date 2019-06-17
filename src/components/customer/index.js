@@ -1,1 +1,1 @@
-export * from './Customer';
+export {CustomerComponent} from './CustomerComponent';

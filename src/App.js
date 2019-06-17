@@ -1,10 +1,14 @@
 import React from 'react';
-import {CustomerForm} from './components/customer'
+import CustomerComponent from './components/customer/CustomerComponent';
+import { Provider } from 'react-redux';
+import store from './store';
 import './App.css';
 
 function App() {
   return (
-    <CustomerForm/>
+    <Provider store={store}>
+    <CustomerComponent/>
+    </Provider>
   );
 }
 

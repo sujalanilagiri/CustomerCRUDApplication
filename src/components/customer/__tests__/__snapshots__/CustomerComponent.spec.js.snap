@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ACTIONS: customerActions ACTION: DELETE_CUSTOMER 1`] = `
+Array [
+  Object {
+    "customerName": undefined,
+    "type": "DELETE_CUSTOMER",
+  },
+]
+`;
+
+exports[`ACTIONS: customerActions ACTION: GET_CUSTOMERS 1`] = `
+Array [
+  Object {
+    "type": "GET_CUSTOMERS",
+  },
+]
+`;
+
+exports[`ACTIONS: customerActions ACTION: SAVE_CUSTOMER 1`] = `
+Array [
+  Object {
+    "data": undefined,
+    "type": "SAVE_CUSTOMER",
+  },
+]
+`;
+
+exports[`ACTIONS: customerActions ACTION: UPDATE_CUSTOMERS 1`] = `
+Array [
+  Object {
+    "type": "UPDATE_CUSTOMER",
+    "updateCustomer": undefined,
+  },
+]
+`;
+
+exports[`REDUCER: customerReducer GET_CUSTOMERS 1`] = `
+Object {
+  "customerList": undefined,
+}
+`;
